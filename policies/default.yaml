@@ -1,0 +1,23 @@
+# Default Cognitive Firewall Policies
+# Action must be: ALLOW, SANITIZE, or BLOCK
+
+rules:
+  - name: block_system_prompt_requests
+    match: "(system prompt|hidden instructions|original instructions)"
+    action: BLOCK
+    description: "Blocks any explicit requests to see the system prompt."
+
+  - name: block_credentials
+    match: "(password|api key|secret key|credentials|access token)"
+    action: BLOCK
+    description: "Blocks prompt or tool output containing sensitive credential keywords."
+
+  - name: sanitize_code_blocks
+    match: "```(bash|sh|python)"
+    action: SANITIZE
+    description: "Sanitizes executable code blocks in prompts."
+
+  - name: block_roleplay_jailbreaks
+    match: "(you are now|pretend you are|act as a|forget you are an AI)"
+    action: BLOCK
+    description: "Blocks common persona adoption jailbreaks."
